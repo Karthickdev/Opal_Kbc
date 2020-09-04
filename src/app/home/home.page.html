@@ -1,0 +1,183 @@
+<ion-header>
+  <div text-uppercase text-center class="title"></div>
+</ion-header>
+
+<ion-content padding>
+  <div padding text-center>
+    <ion-thumbnail slot="start" class="user-img">
+      <img src="../../assets/people.svg">
+    </ion-thumbnail>
+    <div text-uppercase text-center class="title" >
+        <ion-input [readonly]='true' [(ngModel)]="userName"></ion-input>
+    </div>
+  </div>
+  <ion-grid>
+    <ion-row padding-vertical  margin-vertical style="padding-bottom: 0;padding-top: 0">
+      <ion-col size = "1"  text-center *ngIf="enableScan"></ion-col>
+      <ion-col size = "2"  text-center style="padding-right: 0" *ngIf="enableScan">
+          <ion-button
+            size = "large"
+            text-uppercase
+            color = "dark"
+            fill = "outline"
+            class="btn-height"
+            style="background: #C3DBB7"
+            (click) = "goToScanPage()">
+            <ion-thumbnail class="scanner-svg">
+              <img src = "../../assets/icon/barcode.svg">
+            </ion-thumbnail>
+          </ion-button>
+        </ion-col>
+      <ion-col size = "8"  text-center style="padding-left: 0" *ngIf="enableScan"> 
+        <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          class="btn-height"
+          style="background: #C3DBB7"
+          (click) = "goToScanPage()">
+          scan order
+        </ion-button>
+      </ion-col>
+      <ion-col size = "1"  text-center *ngIf="enableScan"></ion-col>
+
+        <ion-col size = "1"  text-center *ngIf="enableReceiveItems"></ion-col>
+          <ion-col size = "2"  text-center style="padding-right: 0" *ngIf="enableReceiveItems">
+              <ion-button
+              size = "large"
+              text-uppercase
+              color = "dark"
+              fill = "outline"
+              style="background: #00BFCC"
+              class="btn-height"
+              (click) = "goToReceivePage()">
+              <ion-thumbnail class="scanner-svg">
+                <img src = "../../assets/icon/receive.svg">
+              </ion-thumbnail>
+            </ion-button>
+          </ion-col>
+      <ion-col size = "8"  text-center style="padding-left: 0" *ngIf="enableReceiveItems">
+          <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          style="background: #00BFCC"
+          class="btn-height"
+          (click) = "goToReceivePage()">
+          receive items
+        </ion-button>
+      </ion-col>
+      <ion-col size = "1"  text-center *ngIf="enableReceiveItems"></ion-col>
+
+      <ion-col size = "1"  text-center *ngIf="enableReturn"></ion-col>
+      <ion-col size = "2"  text-center style="padding-right: 0" *ngIf="enableReturn">
+          <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          style="background: #FC6864"
+          class="btn-height"
+          (click) = "goTorReturnPage()">
+          <ion-thumbnail class="scanner-svg">
+              <img src = "../../assets/icon/return.svg">
+          </ion-thumbnail>
+        </ion-button>
+      </ion-col>
+      <ion-col size = "8"  text-center style="padding-left: 0" *ngIf="enableReturn">
+        <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          style="background: #FC6864"
+          class="btn-height"
+          (click) = "goTorReturnPage()">
+          <span>
+            return items
+          </span>
+        </ion-button>
+      </ion-col>
+      <ion-col size = "1"  text-center *ngIf="enableReturn"></ion-col>
+
+      <ion-col size = "1"  text-center *ngIf="enableAddSale"></ion-col>
+      <ion-col size = "2"  text-center style="padding-right: 0" *ngIf="enableAddSale">
+          <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          style="background: #268387"
+          class="btn-height"
+          (click) = "goToAddSalePage()">
+          <ion-thumbnail class="scanner-svg">
+              <img src = "../../assets/icon/addsale.svg">
+          </ion-thumbnail>
+        </ion-button>
+      </ion-col>
+      <ion-col size = "8"  text-center style="padding-left: 0" *ngIf="enableAddSale">
+        <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          style="background: #268387"
+          class="btn-height"
+          (click) = "goToAddSalePage()">
+          <span>
+            Add sale Item
+          </span>
+        </ion-button>
+      </ion-col>
+      <ion-col size = "1"  text-center *ngIf="enableAddSale"></ion-col>
+
+      <ion-col size = "1"  text-center *ngIf="enableViewInventory"></ion-col>
+      <ion-col size = "2"  text-center style="padding-right: 0" *ngIf="enableViewInventory">
+          <ion-button
+            size = "large"
+            text-uppercase
+            color = "dark"
+            fill = "outline"
+            class="btn-height"
+            style="background: #C3DBB7"
+            (click) = "goToScanPage()">
+            <ion-thumbnail class="scanner-svg">
+              <img src = "../../assets/newspaper.svg">
+            </ion-thumbnail>
+          </ion-button>
+        </ion-col>
+      <ion-col size = "8"  text-center style="padding-left: 0" *ngIf="enableViewInventory">
+        <ion-button
+          size = "large"
+          text-uppercase
+          color = "dark"
+          fill = "outline"
+          class="btn-height"
+          style="background: #C3DBB7"
+          (click) = "goToViewInventory()">
+          View Inventory
+        </ion-button>
+      </ion-col>
+      <ion-col size = "1"  text-center *ngIf="enableViewInventory"></ion-col>
+
+      <ion-col size = "8"  text-center></ion-col>
+      <ion-col size = "3"  text-center>
+          <ion-button
+            size = "large"
+            text-uppercase
+            color = "dark"
+            fill = "outline"
+            style="background: #ffffff"
+            class="btn-height"
+            (click) = "goToSignInPage()">
+            <ion-thumbnail class="scanner-svg">
+                <img src = "../../assets/icon/logout.svg">
+            </ion-thumbnail>
+        </ion-button>
+      </ion-col>
+      <ion-col size = "1"  text-center></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

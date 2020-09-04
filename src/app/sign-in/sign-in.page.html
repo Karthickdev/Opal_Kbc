@@ -1,0 +1,48 @@
+<ion-header>
+    <div text-uppercase text-center class="title"></div>
+</ion-header>
+<ion-content hide-tabs>
+  <form [formGroup]="logingrp" (ngSubmit)="btnLogin()">
+    <ion-grid><br>
+      <br><br>
+      <div padding>
+        <ion-item>
+          <ion-label position="floating" class="lab-font">
+           User Id
+          </ion-label>
+          <ion-input #email type="email" formControlName="userEmail" class="lab-font" (ionInput) = "checkEmptyIdOnFocus($event)"  
+          (ionBlur) = "checkEmptyIdOnBlur($event)" required></ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf = "errUserName">User Id is required. Please enter a valid User Id</div><br>
+        <ion-item>
+          <ion-label position="floating" class="lab-font">
+            Password
+          </ion-label>
+          <ion-input #password type="Password" formControlName="userPwd" class="lab-font" (ionInput) = "checkEmptyPassOnFocus($event)"  
+          (ionBlur) = "checkEmptyPassOnBlur($event)"></ion-input>
+        </ion-item>
+        <!-- <div class="validation-errors">
+           <div  *ngIf="logingrp.get('userPwd').hasError('pattern')">
+            Password is required
+          </div> 
+        </div>-->
+        <div class="error-message" *ngIf = "errPassword">Password is required. Please enter a valid password</div>
+        <!-- <ion-item *ngIf="loginpass.touched"></ion-item> -->
+        <br><br>
+        <ion-row justify-content-center align-items-center>
+          <ion-col size="3"></ion-col>
+          <ion-col size="6">
+            <ion-button type="submit" size="medium" expand="block" class="loggbtn" color="medium" >Login</ion-button>
+          </ion-col>
+          <ion-col size="3"></ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer no-border text-center>
+<!-- <ion-label style="font-size: 14px;">Version: TEST - 0.0.2 (29-05-19)</ion-label> -->
+<ion-label style="font-size: 14px;">Version: UAT - 1.1.2 (09-09-20)</ion-label>
+<!-- <ion-label style="font-size: 14px;">Version: PROD - 1.0.5 (22-05-19)</ion-label>-->
+</ion-footer>
+

@@ -1,0 +1,94 @@
+<ion-header no-padding>
+  <div text-uppercase text-center class="title">Add Sale Item</div>
+  <ion-toolbar class="tool2">
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col size="4" text-left class="padd-left-0">
+          <ion-buttons class="back-marg" (click)="backToHome()">
+            <ion-button style="font-size: 22px;color: #ffffff">BACK</ion-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="2" text-center>
+          <!-- <div style="display: inline-block">
+           <ion-buttons (click)="addSaleSubmit()">
+            <ion-button type="submit" class="round" color="save" [disabled]="!addSaleForm.valid || autoSave == true"
+            [style.cursor]="!addSaleForm.valid ? 'not-allowed' : 'pointer'">Save</ion-button>
+           </ion-buttons>
+          </div> -->
+          <ion-buttons style="float: right">
+            <ion-button type="submit" class="save-center" (click)="addSaleSubmit()"
+              [disabled]="!addSaleForm.valid || autoSave == true"> SAVE</ion-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="4" text-right>
+          <ion-buttons class="clear-marg" (click)="formReset()">
+            <ion-button style="font-size: 22px;color: #ffffff">CLEAR</ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-padding>
+  <form [formGroup]="addSaleForm">
+    <ion-row class="row-padd">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" class="lab-font lab-color">
+            Serial<ion-note style="color: red">*</ion-note>
+          </ion-label>
+          <ion-input #serial type="text" formControlName="serial" minLength="9" maxLength="12" text-uppercase
+            (ionInput)="getNine($event)" (ionBlur)="checkNine($event)" class="lab-font" required></ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="errSerial">Serial number not available</div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" class="lab-font lab-color">Model<ion-note style="color: red">*</ion-note>
+          </ion-label>
+          <!-- <ion-input type = "text" formControlName="model" required></ion-input> -->
+          <ion-input type="search" text-uppercase formControlName="model" class="lab-font" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" class="lab-font lab-color">Customer Name / PO</ion-label>
+          <ion-input #batch text-uppercase type="text" formControlName="customerPO" class="lab-font"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form>
+  <ion-toolbar class="tool1">
+    <ion-grid style="padding: 3% 5%">
+      <ion-row>
+        <ion-col size="5">
+          <ion-label class="lab-font">Auto Save</ion-label>
+        </ion-col>
+        <ion-col size="2" text-center>
+          <label class="switch"><input type="checkbox" [(ngModel)]="checked" (change)="isChecked($event, checked)">
+            <div class="slider rnd"><span class="on">ON</span><span class="off">OFF</span></div>
+          </label>
+        </ion-col>
+        <ion-col size="5"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-row class="marginTL10">
+    <ion-col size="12">
+      <ion-label position="stacked" class="event-font marginTL10">Event Log</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-item padding-horizontal>
+        <ion-textarea rows="3" [readonly]='true' [(ngModel)]="eventLog" class="event-font-italic"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-content>

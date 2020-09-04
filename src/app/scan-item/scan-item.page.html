@@ -1,0 +1,168 @@
+<ion-header no-padding>
+  <div text-uppercase text-center class="title">Scan Order</div>
+  <ion-toolbar class="tool2">
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col size="4" text-left>
+          <ion-buttons class="back-marg" (click)="backToHome()">
+            <ion-button style="font-size: 22px;color: #ffffff">BACK</ion-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="2" text-center>
+          <!-- <div style="display: inline-block">
+            <ion-button type="submit" expand="block" color="save" class="round" (click)="scanSubmit()"
+              [disabled]="!scanForm.valid || autoSave == true">Save</ion-button>
+          </div> -->
+          <ion-buttons style="float: right">
+            <ion-button type="submit" class="save-center" (click)="scanSubmit()"
+              [disabled]="!scanForm.valid || autoSave == true">SAVE</ion-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="4" text-right (click)="formReset()">
+          <ion-buttons class="clear-marg">
+            <ion-button style="font-size: 22px;color: #ffffff">CLEAR</ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-padding>
+  <form [formGroup]="scanForm">
+    <ion-row class="row-padd">
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating" class="lab-font">Order/Tracking/UCC No.<ion-note style="color: red">*
+            </ion-note>
+          </ion-label>
+          <ion-input #order type="text" text-uppercase formControlName="order" (ionFocus)="enableSerialNumbers($event)"
+            class="lab-font" (keyup.enter)="handleScanner($event)" required clearInput></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <div *ngFor="let validation of validation_messages['order']">
+            <div class="error-message"
+              *ngIf="scanForm.get('order').hasError(validation['type']) && scanForm.get('order').touched">
+              {{ validation.message }}
+            </div>
+          </div>
+        </div>
+        <div class="error-message" *ngIf="errOrder">Invalid Order/Tracking/UCC number.</div>
+      </ion-col>
+      <ion-col size="1"
+        style="display: flex!important; align-content: center!important; align-items: center!important;">
+        <ion-buttons>
+          <ion-button fill="clear" (click)="scanOrder()" type="button" [disabled]="searched" item-right
+            style="background:white; margin-top: 100%">
+            <ion-icon name="search" style="width: 35px; height: 35px; color:darkgray"> </ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" class="lab-font">Customer Name</ion-label>
+          <ion-input type="text" formControlName="customerName" class="lab-font" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd" style="margin: 3% auto;">
+      <ion-col size="2">
+        <ion-label position="floating" class="lab-font" style="margin:10%">Model<ion-note style="color: red">*
+          </ion-note>
+        </ion-label>
+      </ion-col>
+      <ion-col size="10">
+        <div *ngFor="let item of modelCount; let i=index; ">
+          <ion-item>
+            <ion-input type="text" text-uppercase formControlName="model_{{item}}" class="lab-font" readonly>
+            </ion-input>
+          </ion-item>
+        </div>
+        <div>
+          <ion-item>
+            <ion-input type="text" text-uppercase formControlName="model_0" class="lab-font" readonly></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd" style="margin: 3% auto;">
+      <ion-row style="margin: 1%">
+        <ion-col size="4">
+          <ion-label position="floating" class="lab-font">Serial Number<ion-note style="color: red">*</ion-note>
+          </ion-label>
+        </ion-col>
+        <ion-col size="6">
+          <!-- <ion-label position="floating" class="lab-font" style="padding-left: 17px">Model Number</ion-label> -->
+        </ion-col>
+        <ion-col size="2" text-right style="padding-right: 6px">
+          <ion-icon name="close" style="font-size: 37px; color: darkgray; padding-right: 8px"
+            (click)="clearSerialField('all')"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-col size="12">
+        <div>
+          <ion-item>
+            <ion-input type="text" #serial id="serial_0" formControlName="serial_0" (ionFocus)="clearErrors()"
+              (ionBlur)="checkNine($event)" clearInput text-uppercase maxLength="12" (ionInput)="getNine($event,'0')"
+              minLength=9 class="lab-font" required disabled></ion-input>
+            <ion-icon name="close" style="font-size: 37px; color: darkgray" (click)="clearSerialField(0)"></ion-icon>
+          </ion-item>
+        </div>
+        <div *ngFor="let item of MySelect1; let i=index;">
+          <ion-item>
+            <ion-input type="text" #serialInputs formControlName="serial_{{item}}" (ionFocus)="clearErrors()"
+              (ionBlur)="checkNine($event)" clearInput text-uppercase maxLength="12" (ionInput)="getNine($event,item)"
+              minLength=9 class="lab-font" required></ion-input>
+            <ion-icon name="close" style="font-size: 37px; color: darkgray" (click)="clearSerialField(item)"></ion-icon>
+          </ion-item>
+        </div>
+        <!-- <div class="error-message" *ngIf="errSerial1">Serial number already exist</div>
+        <div class="error-message" *ngIf="errSerial2">Invalid serial number</div> -->
+      </ion-col>
+      <!-- <ion-col size="8">
+        <ion-item>
+          <ion-input type="text" formControlName="subModel_0" class="lab-font" readonly></ion-input>
+          <ion-icon name="close" style="font-size: 35px; color: #888" (click)="clearSerialField(0)"></ion-icon>
+        </ion-item>
+        <div *ngFor="let item of MySelect1">
+          <ion-item>
+            <ion-input type="text" formControlName="subModel_{{item}}" class="lab-font" readonly></ion-input>
+            <ion-icon name="close" style="font-size: 35px; color: #888" (click)="clearSerialField(item)"></ion-icon>
+          </ion-item>
+        </div>
+      </ion-col> -->
+    </ion-row>
+  </form>
+  <ion-toolbar class="tool1">
+    <ion-grid style="padding: 3% 5%">
+      <ion-row>
+        <ion-col size="5">
+          <ion-label class="lab-font">Auto Save</ion-label>
+        </ion-col>
+        <ion-col size="2" text-center>
+          <!-- <ion-toggle class="toggle-color" ion-toggle-text = "on;off" color = "primary"></ion-toggle> -->
+          <label class="switch"><input type="checkbox" [(ngModel)]="checked" (change)="isChecked($event, checked)">
+            <div class="slider rnd"><span class="on">ON</span><span class="off">OFF</span></div>
+          </label>
+        </ion-col>
+        <ion-col size="5"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-row class="marginTL10">
+    <ion-col size="12">
+      <ion-label position="stacked" class="event-font marginTL10">Event Log</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-item padding-horizontal>
+        <ion-textarea rows="3" [readonly]='true' [(ngModel)]="eventLog" class="event-font-italic"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

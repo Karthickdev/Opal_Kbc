@@ -1,0 +1,154 @@
+$btn-color: #00a4e8;
+$text-color: #070707;
+// $label-md-text-color-focused: #00a4e8;
+
+.header {
+  background-image: url("../../assets/orangebg.png")!important;
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.round {
+    --border-radius: 50%;
+    --vertical-align: middle;
+    // height: 60px;
+    // width: 60px;
+    height: 60px;
+    width: 60px;
+    // --ion-color-base : #FC6864;
+    --ion-color-base: #fd433e;
+    font-size: initial;
+    font-size: 25px;
+  }
+
+  .back-marg{
+    float: left;
+    position: relative;
+    top: 25%;
+    padding: 10px;
+    border-radius: 10px;
+    background: #d45e5a
+  }
+
+  .clear-marg{
+    background: transparent;
+    float: right;
+    position: relative;
+    top: 25%;
+    padding: 10px;
+    border-radius: 10px;
+    background: #d45e5a
+  }
+
+  .save-center{
+    border-radius: 50%;
+    background: #e34844;
+    font-size: 22px;
+    color: #ffffff;
+    height: 80px;
+    width: 85px;
+    border-radius: 50%;
+  }
+
+  .label-pos{
+    position: absolute;
+    bottom: 15%;
+  }
+
+  .row-padd{
+    padding: 0.5% 3%;
+  }
+
+  .tool-2-pos{
+   background: #dedede;
+  }
+
+  .error-message{
+    position: absolute;
+    left: 5%;
+    color: red;
+    font-size: 15px;
+  }
+
+  .title {
+    font-size: 33px;
+    font-weight: 500;
+    padding-top: 10px;
+    background: #FFFFFF00;
+    // margin: 1% 30%;
+    // border-bottom: 1px solid;
+    color: #fff;
+  }
+
+  ion-toolbar{
+    --background: #ffFFFF00;
+    --border-width : 0px !important;
+    // --padding-top: 0;
+    // --padding-bottom: 0;
+    // --min-height: 30px;
+    // height: 75px;
+    // --color: #070707;
+  }
+
+  .srccroll{
+    height: 200px;
+    overflow: scroll;
+    visibility: visible;
+    z-index: 999;
+    position: absolute;
+    width: -webkit-fill-available;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.28);
+    border-radius: 5px;
+}
+.srchgt{
+    height: auto;
+    overflow: hidden;
+    visibility: visible ;
+    z-index: 999;
+    position: absolute;
+    width: -webkit-fill-available;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.28);
+    border-radius: 5px;
+}
+
+
+.input-has-focus{
+    color: #056075 ;
+}
+
+.lab-font{
+  font-size: 25px;
+}
+
+.event-font{
+  font-size: 16px;
+}
+
+.event-font-italic{
+  font-size: 16px;
+  color: #333;
+  font-style: italic;
+}
+
+.select-text{
+  font-size: 25px !important;
+}
+
+.action-sheet-wrapper{
+  --max-width: 760px !important;
+}
+
+.sc-ion-action-sheet-ios{
+  color: red !important; 
+}
+
+.marginTL10 {
+  margin-left: 20px !important;
+  margin-top: 10px !important;
+}
+  
+.marginL15 {
+  margin-left: 35px !important;
+  margin-top: 0px !important;
+}

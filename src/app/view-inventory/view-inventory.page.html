@@ -1,0 +1,94 @@
+<ion-header no-padding style="height: 15%;">
+  <div text-uppercase text-center class="title">View Inventory</div>
+  <ion-toolbar class="tool2">
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col size="4" text-left>
+          <ion-buttons class="back-marg" (click)="backToHome()">
+            <ion-button style="font-size: 22px;color: #ffffff">BACK</ion-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="2" text-center>
+          <!-- <div style="display: inline-block">
+            <ion-button type="submit" expand="block" color="save" class="round" (click)="scanSubmit()"
+              [disabled]="!scanForm.valid || autoSave == true">Save</ion-button>
+          </div> -->
+          <!-- <ion-buttons style="float: right">
+            <ion-button type="submit" class="save-center" (click)="scanSubmit()"
+              >SAVE</ion-button>
+          </ion-buttons> -->
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="4" text-right (click)="formReset()">
+          <ion-buttons class="clear-marg">
+            <ion-button style="font-size: 22px;color: #ffffff">CLEAR</ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <form [formGroup]="returnForm">
+    <ion-row class="row-padd">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" class="lab-font">Model<ion-note style="color: red">*</ion-note>
+          </ion-label>
+          <!-- <ion-input type = "text" formControlName="model" (ionBlur) = "searchModel()" (ionInput) = "disableKey()" required></ion-input> -->
+          <ion-input #model type="search" text-uppercase (ionInput)="searchModel($event)" (ionBlur)="checkEmpty($event)"
+            class="lab-font" formControlName="model"></ion-input>
+        </ion-item>
+        <ion-list *ngIf="showList" [class]="searchList.length > 6 ? 'srccroll' : 'srchgt'">
+          <ion-item *ngFor="let item of searchList" (click)="getSelectedItem(item)" style="font-size: 22px;">
+            {{item}}
+          </ion-item>
+        </ion-list>
+        <div class="validation-errors">
+          <div *ngFor="let validation of validation_messages['model']">
+            <div class="error-message"
+              *ngIf="returnForm.get('model').hasError(validation['type']) && returnForm.get('model').touched">
+              {{ validation.message }}
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-grid *ngIf="showDetail">
+    <ion-row class="row-padd" >
+      <ion-col size="4">
+        <ion-label>Item Name:</ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{itemName}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd">
+      <ion-col size="4">
+        <ion-label>Quantity Availabel:</ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{quantity}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd">
+      <ion-col size="4">
+        <ion-label>Quantity On-Order:</ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{quantityonOrder}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-padd">
+      <ion-col size="4">
+        <ion-label>Bin Location:</ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{binLocation}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </form>
+</ion-content>
