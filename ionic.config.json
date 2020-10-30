@@ -1,0 +1,7 @@
+{
+  "name": "OpalScanApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

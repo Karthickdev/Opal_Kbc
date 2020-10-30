@@ -140,11 +140,12 @@ export class ReceiveItemPage implements OnInit {
   }
 
   //Method to save receive item details
-  receiveSubmit(value) {
+  receiveSubmit() {
     var saveReceive = this.opalService.baseUrl + this.opalService.saveReceive;
     let id = JSON.parse(localStorage.getItem("Id"));
     let model = this.receiveForm.controls['model'].value;
-    let serialNo = value == undefined ? this.receiveForm.value.serial : value;
+    //let serialNo = value == undefined ? this.receiveForm.value.serial : value;
+    let serialNo = this.receiveForm.value.serial
     var dataParam = {
       'batchNumber': this.receiveForm.value.batch.toUpperCase(),
       'containerNumber': this.receiveForm.value.container.toUpperCase(),
@@ -204,7 +205,7 @@ export class ReceiveItemPage implements OnInit {
         serial = value;
 
       if (batch != "" && model != "" && serial != "") {
-        this.receiveSubmit(value);
+        this.receiveSubmit();
       }
     }
   }

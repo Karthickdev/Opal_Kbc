@@ -1,0 +1,7 @@
+{
+  "/Opal/uat/KBC": {
+    "target": "http://71.252.180.148/Opal/uat/KBC",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

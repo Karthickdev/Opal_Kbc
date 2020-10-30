@@ -89,7 +89,7 @@
         <ion-item>
           <ion-label position="floating" class="lab-font">Condition<ion-note style="color: red">*</ion-note>
           </ion-label>
-          <ion-select formControlName="condition" value="{{option1}}" [interfaceOptions]="customActionSheetOptions"
+          <ion-select formControlName="condition" value="{{option1}}"
             (ionChange)="hideErrorMsg()" interface="action-sheet" okText="Done" cancelText="Cancel" class="lab-font">
             <ion-select-option *ngFor="let item of conditionList" value="{{item.enumValue}}">{{item.enumName}}
             </ion-select-option>
@@ -112,7 +112,7 @@
           <ion-label position="floating" class="lab-font">Reason<ion-note style="color: red">*</ion-note>
           </ion-label>
           <ion-select formControlName="reason" value="{{option2}}" okText="Done"
-            [interfaceOptions]="customActionSheetOptions" (ionChange)="hideErrorMsg()" interface="action-sheet"
+            (ionChange)="hideErrorMsg()" interface="action-sheet"
             cancelText="Cancel" class="lab-font">
             <ion-select-option *ngFor="let item of reasonList" value="{{item.enumValue}}">{{item.enumName}}
             </ion-select-option>

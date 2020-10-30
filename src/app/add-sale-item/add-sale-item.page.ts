@@ -17,6 +17,7 @@ export class AddSaleItemPage implements OnInit {
   errSerial: boolean;
   eventLog: string = '';
   autoSave: boolean;
+  checked: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -156,16 +157,17 @@ export class AddSaleItemPage implements OnInit {
         serial = value;
 
       if (batch != "" && model != "" && serial != "") {
-        this.addSaleSubmit(value);
+        this.addSaleSubmit();
       }
     }
   }
 
   //Method to save receive item details
-  addSaleSubmit(value) {
+  addSaleSubmit() {
     var saveReceive = this.opalService.baseUrl + this.opalService.saleSave;
     let id = JSON.parse(localStorage.getItem("Id"));
-    let serialNo = value == undefined ? this.addSaleForm.value.serial : value;
+    //let serialNo = value == undefined ? this.addSaleForm.value.serial : value;
+    let serialNo = this.addSaleForm.value.serial
     let model = this.addSaleForm.controls['model'].value;
     var dataParam = {
       "serialNumber": serialNo.toUpperCase(),
