@@ -1,4 +1,4 @@
-<ion-header no-padding>
+<ion-header no-padding class="header">
   <div text-uppercase text-center class="title">Return Item</div>
   <ion-toolbar>
     <ion-grid no-padding>
@@ -37,7 +37,7 @@
         <ion-item>
           <ion-label position="floating" class="lab-font">Serial<ion-note style="color: red">*</ion-note>
           </ion-label>
-          <ion-input #serial type="text" formControlName="serial" (ionFocus)="enableScanner()"
+          <ion-input #serial type="text" formControlName="serial" (ionFocus)="enableScanner()" minLength="9" maxLength="12"
             (ionInput)="getNine($event)" (ionBlur)="checkNine($event)" maxLength="12" text-uppercase clear-input=true
             class="lab-font" required>
           </ion-input>

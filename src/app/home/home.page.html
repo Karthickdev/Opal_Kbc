@@ -1,16 +1,17 @@
-<ion-header>
+<ion-header class="header">
   <div text-uppercase text-center class="title"></div>
 </ion-header>
 
 <ion-content padding>
-  <div padding text-center>
+  <!-- <div padding text-center>
     <ion-thumbnail slot="start" class="user-img">
       <img src="../../assets/people.svg">
     </ion-thumbnail>
     <div text-uppercase text-center class="title" >
         <ion-input [readonly]='true' [(ngModel)]="userName"></ion-input>
     </div>
-  </div>
+  </div> -->
+  <br><br><br><br><br>
   <ion-grid>
     <ion-row padding-vertical  margin-vertical style="padding-bottom: 0;padding-top: 0">
       <ion-col size = "1"  text-center *ngIf="enableScan"></ion-col>

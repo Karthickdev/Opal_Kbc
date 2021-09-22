@@ -391,9 +391,13 @@ export class ScanItemPage implements OnInit {
     // }
 
     if (val.length == 9 && /^[0-9]+$/.test(val)) {
-      this.serialVerify(val, item);
+      setTimeout(()=>{
+        this.serialVerify(val, item);
+      },200);
     } else if (val.length == 12 && !/^[0-9]+$/.test(val)) {
-      this.serialVerify(val, item);
+      setTimeout(()=>{
+        this.serialVerify(val, item);
+      },200);
     }
   }
 

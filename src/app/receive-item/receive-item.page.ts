@@ -26,6 +26,7 @@ export class ReceiveItemPage implements OnInit {
   keyboardOpen: boolean = false;
   checked: boolean;
   eventLog: String = "";
+  serialNo: any;
   constructor(
     private formBuilder: FormBuilder,
     private routeTo: Router,
@@ -116,6 +117,7 @@ export class ReceiveItemPage implements OnInit {
           this.serialInput.setFocus();
         }, 300);
       } else {
+        this.serialNo = value
         this.autoSaveSerial(value);
       }
       this.opalService.dismiss();
@@ -144,20 +146,22 @@ export class ReceiveItemPage implements OnInit {
     var saveReceive = this.opalService.baseUrl + this.opalService.saveReceive;
     let id = JSON.parse(localStorage.getItem("Id"));
     let model = this.receiveForm.controls['model'].value;
-    //let serialNo = value == undefined ? this.receiveForm.value.serial : value;
-    let serialNo = this.receiveForm.value.serial
+    // if(this.autoSave == false){
+    //   this.serialNo = this.receiveForm.controls['serial'].value;
+    // }
+    
     var dataParam = {
       'batchNumber': this.receiveForm.value.batch.toUpperCase(),
       'containerNumber': this.receiveForm.value.container.toUpperCase(),
       'modelNumber': this.receiveForm.value.model,
-      'serialNumber': serialNo.toUpperCase(),
+      'serialNumber': this.serialNo.toUpperCase(),
       'createdBy': id['userId']
     }
     this.opalService.present();
     this.opalService.ajaxCallService(saveReceive, "post", dataParam).then(result => {
       if (result['message'] == 'Success') {
         this.opalService.presentToast('Item added to inventory', 'success');
-        this.eventLog = 'Serial #' + serialNo + ' (' + model + ') added to inventory. \u2714' + '\n' + this.eventLog;
+        this.eventLog = 'Serial #' + this.serialNo + ' (' + model + ') added to inventory. \u2714' + '\n' + this.eventLog;
         this.nativeAudio.play('successBeep');
         this.receiveForm.controls['serial'].reset();
         setTimeout(() => {
@@ -203,9 +207,10 @@ export class ReceiveItemPage implements OnInit {
       let batch = this.receiveForm.value.batch,
         model = this.receiveForm.value.model,
         serial = value;
-
       if (batch != "" && model != "" && serial != "") {
-        this.receiveSubmit();
+        setTimeout(()=>{
+          this.receiveSubmit();
+        }, 300)
       }
     }
   }
@@ -235,6 +240,62 @@ export class ReceiveItemPage implements OnInit {
     }
     this.errSerial = false;
   }
+
+  // getNine(evt) {
+  //   let val = evt.target.value.toUpperCase();
+  //   if (val.length == 9) {
+  //     this.scanSerial(val);
+  //   } else if (val.length == 12) {
+  //     this.scanSerial(val);
+  //   }
+  //   this.errSerial = false;
+  // }
+
+  // getNine(evt) {
+  //   let val = evt.target.value;
+  //   if (val.length == 9) {
+  //     if (/^[0-9]+$/.test(val)) {
+  //       if (val > 100000001 && val < 100021688) {
+  //         this.scanSerial(val);
+  //       } else {
+  //         this.eventLog = 'Serial # ' + val + ' : should be from 100000001 to 100021688 \u2716' + '\n' + this.eventLog;
+  //       }
+  //     }
+  //   } else if (val.length > 9 && !val.startsWith('K') && !val.endsWith('BC')) {
+  //     if (/^[0-9]+$/.test(val)) {
+  //       this.receiveForm.controls['serial'].setValue(val.slice(0, 9));
+  //       this.eventLog = 'Serial # ' + val + ' : Should have at least 9 digits \u2716' + '\n' + this.eventLog;
+  //     } else {
+  //       this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
+  //     }
+  //     return false;
+  //   } else if (val.startsWith('K') && val.endsWith('BC') && val.length == 12) {
+  //     if ((val.slice(1, val.length - 2) > 100000001)) {
+  //       console.log(val);
+  //       this.scanSerial(val);
+  //     } else {
+  //       console.log(val);
+  //       this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
+  //       return false;
+  //     }
+  //   } else {
+  //     if (val.startsWith('K')) {
+  //       if ((val.slice(1, val.length)).length > 9) {
+  //         if (!(val.charAt(val.length - 1)).startsWith('B')) {
+  //           console.log(val);
+  //           this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
+  //           return false;
+  //         }
+  //       }
+  //     } else if (val.length > 9) {
+  //       this.receiveForm.controls['serial'].setValue(val.slice(0, 9));
+  //       this.eventLog = 'Serial # ' + val + ' : Should have at least 9 digits \u2716' + '\n' + this.eventLog;
+  //       return false;
+  //     }
+  //   }
+
+    
+  // }
 
   checkEntry(evt) {
     //this.errSerial = false;

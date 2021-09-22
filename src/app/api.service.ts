@@ -6,8 +6,8 @@ import { ToastController, LoadingController } from '@ionic/angular';
 	providedIn: 'root'
 })
 export class ApiService {
-	 baseUrl: string = 'http://71.252.180.148/Opal/uat/KBC/';
-	//baseUrl :string = 'https://www2.order-fulfillment.bz/kbc/';
+	//baseUrl: string = 'http://67.79.237.242/opal/uat/KBC/';
+	baseUrl :string = 'https://www2.order-fulfillment.bz/kbc/';
 	//Login
 	userLogin: string = 'userApi/userLogin';
 	modalList: string = "itemsapi/GetAllItemListApi";

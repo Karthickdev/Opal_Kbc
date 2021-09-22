@@ -102,8 +102,9 @@ validation_messages: any = {
       this.opalService.presentToast(this.inventory.message, "danger")
       loading.dismiss();
      }
-    },err=>{
+    }).catch((err)=>{
       loading.dismiss();
+      this.opalService.presentToast("An error has occurred. Please try after some time.", "danger");
     })
   }
 

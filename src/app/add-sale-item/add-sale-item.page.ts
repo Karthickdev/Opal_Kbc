@@ -18,7 +18,7 @@ export class AddSaleItemPage implements OnInit {
   eventLog: string = '';
   autoSave: boolean;
   checked: boolean;
-
+  serialNo: any;
   constructor(
     private formBuilder: FormBuilder,
     private routeTo: Router,
@@ -75,45 +75,7 @@ export class AddSaleItemPage implements OnInit {
 
   //Method to get 9 digit serial number 
   getNine(evt) {
-    let val = evt.target.value;
-    // if (val.length == 9) {
-    //   if (/^[0-9]+$/.test(val)) {
-    //     if (val > 100000001 && val < 100021688) {
-    //       this.scanSerial(val);
-    //     } else {
-    //       this.eventLog = 'Serial # ' + val + ' : should be from 100000001 to 100021688 \u2716' + '\n' + this.eventLog;
-    //     }
-    //   }
-    // } else if (val.length > 9 && !val.startsWith('K') && !val.endsWith('BC')) {
-    //   if (/^[0-9]+$/.test(val)) {
-    //     this.addSaleForm.controls['serial'].setValue(val.slice(0, 9));
-    //     this.eventLog = 'Serial # ' + val + ' : Should have at least 9 digits \u2716' + '\n' + this.eventLog;
-    //   } else {
-    //     this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
-    //   }
-    //   return false;
-    // } else if (val.startsWith('K') && val.endsWith('BC') && val.length == 12) {
-    //   if ((val.slice(1, val.length - 2) > 100000001)) {
-    //     this.scanSerial(val);
-    //   } else {
-    //     this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
-    //     return false;
-    //   }
-    // } else {
-    //   if (val.startsWith('K')) {
-    //     if ((val.slice(1, val.length)).length > 9) {
-    //       if (!(val.charAt(val.length - 1)).startsWith('B')) {
-    //         this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
-    //         return false;
-    //       }
-    //     }
-    //   } else if (val.length > 9) {
-    //     this.addSaleForm.controls['serial'].setValue(val.slice(0, 9));
-    //     this.eventLog = 'Serial # ' + val + ' : Should have at least 9 digits \u2716' + '\n' + this.eventLog;
-    //     return false;
-    //   }
-    // }
-
+    let val = evt.target.value.toUpperCase();
     if (val.length == 9 && /^[0-9]+$/.test(val)) {
       this.scanSerial(val);
     } else if (val.length == 12 && !/^[0-9]+$/.test(val)) {
@@ -121,6 +83,58 @@ export class AddSaleItemPage implements OnInit {
     }
     this.errSerial = false;
   }
+  // getNine(evt) {
+  //   let val = evt.target.value;
+  //   if (val.length == 9) {
+  //     if (/^[0-9]+$/.test(val)) {
+  //       if (val > 100000001 && val < 100021688) {
+  //         this.scanSerial(val);
+  //       } else {
+  //         this.eventLog = 'Serial # ' + val + ' : should be from 100000001 to 100021688 \u2716' + '\n' + this.eventLog;
+  //       }
+  //     }
+  //   } else if (val.length > 9 && !val.startsWith('K') && !val.endsWith('BC')) {
+  //     if (/^[0-9]+$/.test(val)) {
+  //       this.addSaleForm.controls['serial'].setValue(val.slice(0, 9));
+  //       this.eventLog = 'Serial # ' + val + ' : Should have at least 9 digits \u2716' + '\n' + this.eventLog;
+  //     } else {
+  //       this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
+  //     }
+  //     return false;
+  //   } else if (val.startsWith('K') && val.endsWith('BC') && val.length == 12) {
+  //     if ((val.slice(1, val.length - 2) > 100000001)) {
+  //       this.scanSerial(val);
+  //     } else {
+  //       this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
+  //       return false;
+  //     }
+  //   } else {
+  //     if (val.startsWith('K')) {
+  //       if ((val.slice(1, val.length)).length > 9) {
+  //         if (!(val.charAt(val.length - 1)).startsWith('B')) {
+  //           this.eventLog = 'Serial # ' + val + ' is invalid \u2716' + '\n' + this.eventLog;
+  //           return false;
+  //         }
+  //       }
+  //     } else if (val.length > 9) {
+  //       this.addSaleForm.controls['serial'].setValue(val.slice(0, 9));
+  //       this.eventLog = 'Serial # ' + val + ' : Should have at least 9 digits \u2716' + '\n' + this.eventLog;
+  //       return false;
+  //     }
+  //   }
+
+    
+  // }
+
+  // getNine(evt) {
+  //   let val = evt.target.value;
+  //   if (val.length == 9) {
+  //     this.scanSerial(val);
+  //   } else if (val.length == 12) {
+  //     this.scanSerial(val);
+  //   }
+  //   this.errSerial = false;
+  // }
 
 
   //Method to check if serial number is exist
@@ -134,6 +148,7 @@ export class AddSaleItemPage implements OnInit {
     this.opalService.ajaxCallService(serialScan, "post", dataParam).then(result => {
       if (result['modelNumber'] != undefined) {
         this.addSaleForm.controls['model'].setValue(result['modelNumber']);
+        this.serialNo = value
         this.autoSaveSerial(value);
       } else {
         this.opalService.presentToast(result['message'], "danger");
@@ -155,7 +170,6 @@ export class AddSaleItemPage implements OnInit {
       let batch = this.addSaleForm.value.batch,
         model = this.addSaleForm.value.model,
         serial = value;
-
       if (batch != "" && model != "" && serial != "") {
         this.addSaleSubmit();
       }
@@ -166,11 +180,13 @@ export class AddSaleItemPage implements OnInit {
   addSaleSubmit() {
     var saveReceive = this.opalService.baseUrl + this.opalService.saleSave;
     let id = JSON.parse(localStorage.getItem("Id"));
-    //let serialNo = value == undefined ? this.addSaleForm.value.serial : value;
-    let serialNo = this.addSaleForm.value.serial
+    //this.serialNo = value == undefined ? this.addSaleForm.value.serial : value;
+    // if(this.autoSave == false){
+    //   this.serialNo = this.addSaleForm.controls['serial'].value
+    // }
     let model = this.addSaleForm.controls['model'].value;
     var dataParam = {
-      "serialNumber": serialNo.toUpperCase(),
+      "serialNumber": this.serialNo.toUpperCase(),
       "modelNumber": this.addSaleForm.value.model,
       "po": this.addSaleForm.value.customerPO,
       "modifiedBy": id.userId
@@ -179,7 +195,7 @@ export class AddSaleItemPage implements OnInit {
     this.opalService.ajaxCallService(saveReceive, "post", dataParam).then(result => {
       if (result == 'Success') {
         this.opalService.presentToast('Item removed from inventory', 'success');
-        this.eventLog = 'Serial # ' + serialNo + ' (' + model + ') removed from inventory. \u2714' + '\n' + this.eventLog;
+        this.eventLog = 'Serial # ' + this.serialNo + ' (' + model + ') removed from inventory. \u2714' + '\n' + this.eventLog;
         this.nativeAudio.play('successBeep');
         this.addSaleForm.reset();
         setTimeout(() => {

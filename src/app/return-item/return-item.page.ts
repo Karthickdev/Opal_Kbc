@@ -32,6 +32,7 @@ export class ReturnItemPage implements OnInit {
   condRequired: boolean = false;
   reasonRequired: boolean = false;
   scanned: boolean = false;
+  serialNo: any;
   constructor(
     private formBuilder: FormBuilder,
     private routeTo: Router,
@@ -133,6 +134,7 @@ export class ReturnItemPage implements OnInit {
 
   //Method to scan serial number
   scanSerial(value) {
+    console.log(value);
     var serialScan = this.opalService.baseUrl + this.opalService.serialScan;
     var dataParam = {
       'serialNumber': value
@@ -218,7 +220,8 @@ export class ReturnItemPage implements OnInit {
       return false;
     }
     var dataParam = {
-      'serialNumber': this.returnForm.value.serial.toUpperCase(),
+      //'serialNumber': this.returnForm.controls['serial'].value,
+      'serialNumber': this.serialNo,
       'modelNumber': this.returnForm.value.model,
       'po': this.returnForm.value.po,
       'itemConditionEnum': this.returnForm.value.condition,
@@ -303,8 +306,10 @@ export class ReturnItemPage implements OnInit {
 
     if (val.length == 9 && /^[0-9]+$/.test(val)) {
       this.scanSerial(val);
+      this.serialNo = val
     } else if (val.length == 12 && !/^[0-9]+$/.test(val)) {
       this.scanSerial(val);
+      this.serialNo = val
     }
   }
 
