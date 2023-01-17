@@ -11,7 +11,7 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
   styleUrls: ['./view-inventory.page.scss'],
 })
 export class ViewInventoryPage implements OnInit {
-  @ViewChild('model') model;
+  @ViewChild('model', { static: false }) model;
   public returnForm: FormGroup;
   showList: boolean = false;
   searchList: any = [];

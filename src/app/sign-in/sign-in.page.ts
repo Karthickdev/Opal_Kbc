@@ -9,8 +9,8 @@ import { ApiService } from '../api.service';
   styleUrls: ['./sign-in.page.scss'],
 })
 export class SignInPage implements OnInit {
-  @ViewChild("email") email;
-  @ViewChild("password") password;
+  @ViewChild("email", { static: false }) email;
+  @ViewChild("password", { static: false }) password;
   public logingrp: FormGroup;
 
   errUserName : boolean;

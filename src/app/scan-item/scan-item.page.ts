@@ -11,8 +11,8 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 })
 export class ScanItemPage implements OnInit {
   public scanForm: FormGroup;
-  @ViewChild('order') order;
-  @ViewChild('serial') serial;
+  @ViewChild('order', { static: false }) order;
+  @ViewChild('serial', { static: false }) serial;
   @ViewChildren('serialInputs') elements;
 
   MySelect1: any = [];
@@ -129,8 +129,8 @@ export class ScanItemPage implements OnInit {
           this.errSerial2 = false;
           this.errSerial1 = false;
         } else {
-          this.eventLog = 'Order/Tracking/UCC # ' + pValue + ' : Invalid/Not found. \u2716' + '\n' + this.eventLog;
-          this.opalService.presentToast("Invalid Order/Tracking/UCC #", "danger");
+          this.eventLog = result['message'] + '\n' + this.eventLog;
+          this.opalService.presentToast(result['message'], "danger");
           this.errOrder = true;
           this.errSerial2 = false;
           this.errSerial1 = false;

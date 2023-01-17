@@ -13,8 +13,8 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 })
 export class ReceiveItemPage implements OnInit {
 
-  @ViewChild("batch") batchInput;
-  @ViewChild("serial") serialInput;
+  @ViewChild("batch", { static: false }) batchInput;
+  @ViewChild("serial", { static: false }) serialInput;
 
   public receiveForm: FormGroup;
   searchList: any[];

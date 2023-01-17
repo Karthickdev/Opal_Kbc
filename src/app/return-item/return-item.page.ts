@@ -11,7 +11,7 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
   styleUrls: ['./return-item.page.scss'],
 })
 export class ReturnItemPage implements OnInit {
-  @ViewChild('serial') serial;
+  @ViewChild('serial', { static: false }) serial;
 
   eventLog: String = "";
   public returnForm: FormGroup;

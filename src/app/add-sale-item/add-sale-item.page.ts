@@ -11,7 +11,7 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
   styleUrls: ['./add-sale-item.page.scss'],
 })
 export class AddSaleItemPage implements OnInit {
-  @ViewChild("serial") serialInput;
+  @ViewChild("serial", { static: false }) serialInput;
 
   public addSaleForm: FormGroup;
   errSerial: boolean;
